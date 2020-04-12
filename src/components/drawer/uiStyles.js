@@ -1,6 +1,10 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
+/*
+  Edit the styles of the material ui Drawer component.
+  It's necesary for a drawer responsive.
+*/
 
 export const useStyles = makeStyles((theme) => ({
 	root: {
@@ -38,5 +42,11 @@ export const useStyles = makeStyles((theme) => ({
 	item: {
     fontSize: '1.2rem',
     fontFamily:'Quicksand',
-	}
+  },
+  year:{
+    paddingLeft:'20px',
+    paddingRight:'20px',
+    backgroundColor:'#C278FF',
+    borderRadius:'80px'
+  }
 }));

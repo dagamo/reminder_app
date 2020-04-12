@@ -5,8 +5,10 @@ import moment from 'moment';
 import './../../styles/ui/header.css';
 import weatherIcon from './../../assets/images/lluvia.png';
 
+/*
+This component is the header of the app and it is using a css style file
+*/
 const Header = () => {
-	
 	const currentDay = moment().format('dddd');
 
 	return (

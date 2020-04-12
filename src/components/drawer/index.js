@@ -2,51 +2,42 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Divider, Drawer, Hidden, List, ListItem, ListItemText } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
-import moment from 'moment';
 //styles
-import { useStyles } from './styles';
-//utils
-import { months } from './../../util/monthsList';
-//images
-import leftIcon from './../../assets/images/left@2x.png';
-import rightIcon from './../../assets/images/right@2x.png';
+import { useStyles } from './uiStyles';
 
+/*
+This component is using a material ui object for styles
+*/
 function ResponsiveDrawer(props) {
-	const { container } = props;
+	const { container, items, headerContent } = props;
 	const classes = useStyles();
 	const theme = useTheme();
 	const [ mobileOpen, setMobileOpen ] = React.useState(false);
 
-  //This function hide the drawer months when the screen is mobile size.
+	//This function hide the drawer months when the screen is mobile size.
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
-  };
-  
-  //Get the current year of type string
-  const yearString = moment().format('YYYY');
-  
+	};
+
 	const drawer = (
 		<div>
 			<Divider />
 			<Box className={classes.toolbar}>
-				<Box component="span">
-					<img src={leftIcon} width={'35px'} alt="left" />
-				</Box>
-				<Box component="span">{yearString}</Box>
-				<Box component="span">
-					<img src={rightIcon} width={'35px'} alt="right" />
-				</Box>
+        {
+          headerContent && headerContent()
+        }
 			</Box>
 			<List className={classes.list}>
-				{months.map((month, index) => (
-					<ListItem button key={index}>
-						<ListItemText>
-							<Box component="span" className={classes.item}>
-								{month.name}
-							</Box>
-						</ListItemText>
-					</ListItem>
-				))}
+				{Array.isArray(items) &&
+					items.map((item, index) => (
+						<ListItem button key={index}>
+							<ListItemText>
+								<Box component="span" className={classes.item}>
+									{item.name}
+								</Box>
+							</ListItemText>
+						</ListItem>
+					))}
 			</List>
 		</div>
 	);
@@ -92,7 +83,11 @@ ResponsiveDrawer.propTypes = {
 	/**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
+   * It's need items for render inside the drawer with a structure {id:number, name: string}
+   * It's need a headerContent it is a function returns a component.
    */
+  headerContent: PropTypes.any,
+	items: PropTypes.array,
 	container: PropTypes.any
 };
 
