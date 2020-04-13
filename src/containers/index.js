@@ -3,7 +3,7 @@ import { Box, Container, Grid } from '@material-ui/core';
 //styles
 import './../styles/base/layout.css';
 import Header from './../components/header/index';
-import Drawer from './sideNav/index';
+import SideNav from './sideNav/index';
 import Calendar from './../components/calendar/index';
 
 const Index = () => {
@@ -13,7 +13,7 @@ const Index = () => {
 			
 			<Grid container className="layout">
 				<Grid item xs={0} md={2} >
-				<Drawer />
+				<SideNav />
 				</Grid>
 				<Grid item xs={12} md={8} >
 					<Calendar />

@@ -4,6 +4,9 @@
   align-items: center;
   justify-content: space-around;
 }
+.drawerHeader > span {
+  cursor: pointer;
+}
 .yearText{
   padding-left:20px;
   padding-right:20px;

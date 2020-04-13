@@ -9,7 +9,7 @@ import { useStyles } from './uiStyles';
 This component is using a material ui object for styles
 */
 function ResponsiveDrawer(props) {
-	const { container, items, headerContent } = props;
+	const { container, items, headerContent, actionItem } = props;
 	const classes = useStyles();
 	const theme = useTheme();
 	const [ mobileOpen, setMobileOpen ] = React.useState(false);
@@ -30,9 +30,11 @@ function ResponsiveDrawer(props) {
 			<List className={classes.list}>
 				{Array.isArray(items) &&
 					items.map((item, index) => (
-						<ListItem button key={index}>
+						<ListItem button key={index} onClick={()=>{
+							actionItem(item)
+						}}>
 							<ListItemText>
-								<Box component="span" className={classes.item}>
+								<Box component="span" className={classes.item} >
 									{item.name}
 								</Box>
 							</ListItemText>
@@ -86,6 +88,7 @@ ResponsiveDrawer.propTypes = {
    * It's need items for render inside the drawer with a structure {id:number, name: string}
    * It's need a headerContent it is a function returns a component.
    */
+	actionItem: PropTypes.func,
   headerContent: PropTypes.any,
 	items: PropTypes.array,
 	container: PropTypes.any
