@@ -1,16 +1,19 @@
 import React from 'react';
 import { Grid, Box } from '@material-ui/core';
 import { days } from './../../constants/stringDays';
+import moment from 'moment';
 
-const calendarHeader = () => {
+const calendarHeader = (props) => {
+	const { date } = props;
+	const monthString = moment(date).format('MMMM');
 	return (
 		<Grid item md={12}>
 			<Grid item md={12} className="calendarHeader">
-				<Box component="span">JANUARY</Box>
+				<Box component="span">{monthString}</Box>
 			</Grid>
 			<Grid container md={12}>
 				{days.map((day, i) => (
-					<Box key={i} className='dayContainer'>
+					<Box key={i} className="dayContainer">
 						{day}
 					</Box>
 				))}

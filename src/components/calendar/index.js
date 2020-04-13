@@ -12,14 +12,13 @@ import { setMonthDay } from './../../actions/calendar';
 import { useGetMonthDays } from './../../hooks/useGetMonthDays';
 
 const Calendar = (props) => {
-	const { years, _setMonthDays } = props;
-	const [ date, setDate ] = useState(moment('2020-01-01').format('YYYY-MM-DD'));
+	const { years, _setMonthDays, date } = props;
 	const payloadMonth = useGetMonthDays({ date, years, _setMonthDays });
 
 	return (
 		<Container maxWidth="xl" className="calendarContainer">
 			<Grid container>
-				<Header />
+				<Header date={date} />
 				<Body {...payloadMonth} />
 			</Grid>
 		</Container>
@@ -27,9 +26,10 @@ const Calendar = (props) => {
 };
 
 const mapStateToProps = (state) => {
-	let { calendar: { years } } = state;
+	let { calendar: { years, dateSelected: date } } = state;
 	return {
-		years
+		years,
+		date
 	};
 };
 
