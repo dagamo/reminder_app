@@ -32,5 +32,5 @@ const HeaderContent = () => {
 };
 
 export default (props) => {
-	return <Drawer items={months} headerContent={HeaderContent}  />;
+	return <Drawer items={months} headerContent={HeaderContent} />;
 };

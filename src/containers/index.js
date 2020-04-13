@@ -1,14 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { Box } from '@material-ui/core';
+import { Box, Container, Grid } from '@material-ui/core';
+//styles
+import './../styles/base/layout.css';
 import Header from './../components/header/index';
 import Drawer from './sideNav/index';
+import Calendar from './../components/calendar/index';
 
 const Index = () => {
 	return (
-		<Box>
+		<Container maxWidth="xl">
 			<Header />
-			<Drawer />
-		</Box>
+			
+			<Grid container className="layout">
+				<Grid item xs={0} md={2} >
+				<Drawer />
+				</Grid>
+				<Grid item xs={12} md={8} >
+					<Calendar />
+				</Grid>
+				<Grid item xs={12} md={2} className="remindersContainer">
+					Items
+				</Grid>
+			</Grid>
+		</Container>
 	);
 };
 

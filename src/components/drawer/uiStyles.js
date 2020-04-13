@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
-const drawerWidth = 240;
+const drawerWidth = 248;
 /*
   Edit the styles of the material ui Drawer component.
   It's necesary for a drawer responsive.
