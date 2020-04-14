@@ -8,7 +8,7 @@ const reminderHeader = (props) => {
 
 	return (
 		<Grid item md={12}>
-			<Grid item md={12} className="calendarHeader">
+			<Grid item md={12} className="reminderHeader">
 				<Box
 					className="button-close"
 					onClick={() => {
@@ -16,6 +16,14 @@ const reminderHeader = (props) => {
 					}}
 				>
 					Close
+				</Box>
+				<Box
+					className="button-remove"
+					onClick={() => {
+						remove();
+					}}
+				>
+					Remove
 				</Box>
 				<Box component="span">{monthString}</Box>
 				<Box
@@ -36,14 +44,7 @@ const reminderHeader = (props) => {
 				>
 					Edit
 				</Box>
-				<Box
-					className="button-remove"
-					onClick={() => {
-						remove();
-					}}
-				>
-					Remove
-				</Box>
+				
 			</Grid>
 		</Grid>
 	);
