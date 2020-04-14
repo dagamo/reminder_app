@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Box, Checkbox} from '@material-ui/core';
+import { Box, Checkbox } from '@material-ui/core';
 import moment from 'moment';
 import { NotificationManager } from 'react-notifications';
 //styles
@@ -35,13 +35,13 @@ const Reminders = (props) => {
 		}
 	};
 
-	const checkDay = (day)=>{
- if(day.id === checked.id){
-	setChecked({})
- }else{
-	setChecked(day)
- }
-	}
+	const checkDay = (day) => {
+		if (day.id === checked.id) {
+			setChecked({});
+		} else {
+			setChecked(day);
+		}
+	};
 
 	return (
 		<Box>
@@ -64,13 +64,15 @@ const Reminders = (props) => {
 								checked={checked.id === rem.id ? true : false}
 								color="primary"
 								inputProps={{ 'aria-label': 'secondary checkbox' }}
-								onClick={()=>checkDay(rem)}
+								onClick={() => checkDay(rem)}
 							/>
 							<Box className="reminderTitle">{time}</Box>
 							<Box className="reminderText">{rem.reminder}</Box>
 							<Box className="cityContainer">
 								<Box className="reminderCity">{rem.city}</Box>
-								<Box>{rem.temp}</Box>
+								<Box>
+									{rem.weather} - {rem.temp}
+								</Box>
 							</Box>
 						</Box>
 					);

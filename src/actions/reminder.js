@@ -15,11 +15,12 @@ export const createReminder = (params) => {
 		axios
 			.get(`weather?q=${params.city}&appid=${WEATHER_KEY}`)
 			.then(({ data }) => {
-				let celcius = f_to_c(data.main.temp)
+				let celcius = f_to_c(data.main.humidity)
 				params = {
 					...params,
 					city: data.name,
-					temp: `${celcius} °C`
+					temp: `${celcius} °C`,
+					weather:data.weather && data.weather[0] ? data.weather[0].main : ''
 				};
 				dispatch({ type: CREATE_REMINDER, params });
 			})

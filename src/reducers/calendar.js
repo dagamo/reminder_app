@@ -23,7 +23,16 @@ export const calendar = (state = init, action) => {
 				Verify if the month exists in the reducer.
 				If not exists create a new information for the calendar.
 			*/
-
+			let countDay = 1;
+			let daysName = {
+				1: 'sun',
+				2: 'mon',
+				3: 'tue',
+				4: 'wed',
+				5: 'thu',
+				6: 'fri',
+				7: 'sat'
+			};
 			if (!verifyMonth(state.years, year, month)) {
 				let daysNumber = moment(date).daysInMonth();
 				let monthStartDay = moment(date).startOf('month').format('d');
@@ -42,6 +51,8 @@ export const calendar = (state = init, action) => {
 			1)	if the month day start is diferent to sunday then generate the previus days.
 			2) Generate the current month days.
 			3) Generate the next month days.
+			4) aument the number of countDay, It is for get the day parent.
+			5) if countDay is 7 reset to 0
 				*/
 
 				if (monthStartDay > 0) {
@@ -49,11 +60,17 @@ export const calendar = (state = init, action) => {
 					for (let p = monthStartDay; p >= 0; p--) {
 						const infoDay = {
 							dayNumber: previusMonthDays - p,
+							dayText: daysName[countDay],
 							month: previusMonth,
 							year: yearSelected,
 							hasReminder: false
 						};
 						days = [ ...days, infoDay ];
+						if (countDay === 7) {
+							countDay = 0;
+						} else {
+							countDay += 1;
+						}
 					}
 				}
 
@@ -62,10 +79,16 @@ export const calendar = (state = init, action) => {
 					const infoDay = {
 						dayNumber: i,
 						month,
+						dayText: daysName[countDay],
 						year: currentYear,
 						hasReminder: false
 					};
 					days = [ ...days, infoDay ];
+					if (countDay === 7) {
+						countDay = 1;
+					} else {
+						countDay += 1;
+					}
 				}
 
 				if (monthOfDay !== 6) {
@@ -73,11 +96,17 @@ export const calendar = (state = init, action) => {
 					for (let n = monthOfDay, o = 1; n <= 6; n++, o++) {
 						let infoDay = {
 							dayNumber: o,
+							dayText: daysName[countDay],
 							month: null,
 							year: null,
 							hasReminder: false
 						};
 						days = [ ...days, infoDay ];
+						if (countDay === 7) {
+							countDay = 1;
+						} else {
+							countDay += 1;
+						}
 					}
 				}
 				//update the reducer year param
@@ -108,8 +137,8 @@ export const calendar = (state = init, action) => {
 			let { date } = action.params;
 			let month = moment(date).month() + 1;
 			let year = moment(date).year();
-			let day = moment(date,'YYYY-MM-DDTHH:mm:ss').format('DD');
-			day = Number(day)
+			let day = moment(date, 'YYYY-MM-DDTHH:mm:ss').format('DD');
+			day = Number(day);
 			let copyMonthDays = [ ...state.years[year][month].days ];
 			let findDay = copyMonthDays.findIndex((d) => d.dayNumber === day);
 
@@ -134,7 +163,7 @@ export const calendar = (state = init, action) => {
 				}
 			};
 		}
-		
+
 		case UPDATE_GENERAL_PARAM: {
 			const { key, value, red_name } = action;
 			let copyState = { ...state };

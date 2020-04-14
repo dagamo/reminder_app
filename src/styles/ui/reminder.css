@@ -87,6 +87,7 @@
 	overflow: scroll;
 	align-items: center;
 	text-align: center;
+	overflow-x: hidden;
 }
 .reminderTitle{
 	font-weight: bold;
