@@ -15,7 +15,7 @@ npm start
 1) Create a Reminder.
 2) Update the reminder.
 3) Delete a reminder.
-4) List the reminder of a day.
+4) List the reminders of a day.
 5) A calendar dinamicly
 
 ## See the reminders.
