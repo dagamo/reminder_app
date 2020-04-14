@@ -1,3 +1,10 @@
+.reminderHeader {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 25px;
+	font-size: 2rem;
+}
 .button-create {
 	font-size: 1rem;
 	font-weight: bold;
@@ -98,4 +105,36 @@
 	height: 80px;
 	width: 17%; */
 
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen  and (max-width: 767px) {
+	.reminderHeader{
+		font-size: 1rem;
+	}
+	.button-create, .button-edit, .button-remove, .button-close {
+		font-size: 0.9rem;
+		font-weight: bold;
+		padding: 5px;
+		background-color: #fafafa;
+	}
+	.button-edit{
+		right:70px
+	}
+	.button-remove{
+		right: 320px;
+	}
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1400px) {
+ 
 }

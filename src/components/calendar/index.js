@@ -18,12 +18,16 @@ const Calendar = (props) => {
 		...payloadMonth,
 		...props
 	};
-	
+
 	return (
 		<Container maxWidth="xl" className="calendarContainer">
 			<Grid container>
-				<Header date={date} />
-				<Body {...payloadMonth} />
+				<Grid item xs={12} md={12}>
+					<Header date={date} />
+				</Grid>
+				<Grid item xs={12} md={12}>
+					<Body {...payloadMonth} />
+				</Grid>
 			</Grid>
 		</Container>
 	);
