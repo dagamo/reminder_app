@@ -1,22 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Box } from '@material-ui/core';
+import { selectDay } from './../../actions/reminder';
 
-const body = (props) => {
-	const { days } = props;
+const Body = (props) => {
+	const { days, selectDay, onClick } = props;
 	return (
-		<Box style={{ display: 'flex', flexWrap: 'wrap', flex: 1 }}>
+		<Box className="containerDays">
 			{days.map((day, i) => (
 				<Box
 					key={i}
-					style={{
-						width: '14.28%',
-						textAlign: 'center',
-						paddingLeft: 15,
-						paddingRight: 15,
-						paddingTop: 25,
-						paddingBottom: 25,
-						fontSize: '1.7rem',
-						fontWeight: 'normal'
+					onClick={() => {
+						if (day.month && day.year) {
+							let date = `${day.year}-${day.month}-${day.dayNumber}`;
+							selectDay(date);
+							onClick()
+						}
 					}}
 				>
 					<Box component="span">{day.dayNumber}</Box>
@@ -26,4 +25,5 @@ const body = (props) => {
 	);
 };
 
-export default body;
+const mapDispatchToProps = { selectDay };
+export default connect(null, mapDispatchToProps)(Body);

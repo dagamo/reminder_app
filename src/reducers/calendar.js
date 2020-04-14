@@ -1,4 +1,4 @@
-import { SET_MONTH_DAYS, UPDATE_GENERAL_PARAM } from './../constants/actionTypes';
+import { SET_MONTH_DAYS, UPDATE_GENERAL_PARAM, SELECT_DAY } from './../constants/actionTypes';
 import moment from 'moment';
 import { verifyMonth } from './../util/verifyMonth';
 
@@ -44,7 +44,8 @@ export const calendar = (state = init, action) => {
 			3) Generate the next month days.
 				*/
 
-				if (monthStartDay > 0) { //1
+				if (monthStartDay > 0) {
+					//1
 					for (let p = monthStartDay; p >= 0; p--) {
 						const infoDay = {
 							dayNumber: previusMonthDays - p,
@@ -56,7 +57,8 @@ export const calendar = (state = init, action) => {
 					}
 				}
 
-				for (let i = 1; i <= Number(daysNumber); i++) { //2
+				for (let i = 1; i <= Number(daysNumber); i++) {
+					//2
 					const infoDay = {
 						dayNumber: i,
 						month,
@@ -66,7 +68,8 @@ export const calendar = (state = init, action) => {
 					days = [ ...days, infoDay ];
 				}
 
-				if (monthOfDay !== 6) { //3
+				if (monthOfDay !== 6) {
+					//3
 					for (let n = monthOfDay, o = 1; n <= 6; n++, o++) {
 						let infoDay = {
 							dayNumber: o,
@@ -93,6 +96,12 @@ export const calendar = (state = init, action) => {
 			return {
 				...state,
 				years: { ...copyYears }
+			};
+		}
+		case SELECT_DAY: {
+			return {
+				...state,
+				dateSelected: action.date
 			};
 		}
 		case UPDATE_GENERAL_PARAM: {
