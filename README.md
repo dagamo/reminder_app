@@ -1,8 +1,8 @@
 
-Project Gueki frontend
+Project Reminder app
 ## Download the code
 
-git clone -b master https://github.com/ricklennie/reactgueki.git
+git clone -b master https://github.com/dagamo/reminder_app.git
 
 ## Install dependences
 
