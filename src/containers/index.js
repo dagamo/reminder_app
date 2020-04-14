@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useTransition, animated } from 'react-spring';
 import { Box, Container, Grid } from '@material-ui/core';
+import { NotificationContainer } from 'react-notifications';
 //styles
 import './../styles/base/layout.css';
 import Header from './../components/header/index';
@@ -11,12 +12,12 @@ import Reminder from './../components/reminders/index';
 const pages = [
 	({ style, onClick }) => (
 		<animated.div style={{ ...style }}>
-			<Calendar onClick={onClick}/>
+			<Calendar onClick={onClick} />
 		</animated.div>
 	),
 	({ style, onClick }) => (
-		<animated.div style={{ ...style, background: 'lightblue' }}>
-			<Reminder onClick={onClick}/>
+		<animated.div style={{ ...style }}>
+			<Reminder onClick={onClick} />
 		</animated.div>
 	)
 ];
@@ -48,6 +49,7 @@ const Index = () => {
 					Items
 				</Grid>
 			</Grid>
+			<NotificationContainer />
 		</Container>
 	);
 };

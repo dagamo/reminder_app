@@ -1,5 +1,13 @@
-.button-create{
-  background-color: red;
-  font-size: 1rem;
-  font-weight: bold;
+.button-create {
+	font-size: 1rem;
+	font-weight: bold;
+	color: var(--blue_ligth);
+	padding: 10px;
+	border: 1px solid var(--blue_ligth);
+	border-radius: 25px;
+	cursor: pointer;
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	background-color: #fafafa;
 }
