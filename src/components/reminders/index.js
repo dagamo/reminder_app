@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Box, Checkbox, Select } from '@material-ui/core';
+import { Box, Checkbox} from '@material-ui/core';
 import moment from 'moment';
 import { NotificationManager } from 'react-notifications';
 //styles
@@ -49,7 +49,7 @@ const Reminders = (props) => {
 			<Box className="reminContainer">
 				{reminders.map((rem, i) => {
 					let time = moment(rem.date).format('HH:mm a');
-					time = time == '00:00 am' ? '12:00 am' : time;
+					time = time === '00:00 am' ? '12:00 am' : time;
 					return (
 						<Box className="reminderCard" key={i} style={{ backgroundColor: rem.color }}>
 							<Checkbox

@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useTransition, animated } from 'react-spring';
-import { Box, Container, Grid } from '@material-ui/core';
+import {Container, Grid } from '@material-ui/core';
 import { NotificationContainer } from 'react-notifications';
 //styles
 import './../styles/base/layout.css';
