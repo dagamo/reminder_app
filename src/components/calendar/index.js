@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Container, Grid, Box } from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
 import './../../styles/ui/calendar.css';
-import moment from 'moment';
 //components
 import Header from './header';
 import Body from './body';
@@ -13,8 +12,13 @@ import { useGetMonthDays } from './../../hooks/useGetMonthDays';
 
 const Calendar = (props) => {
 	const { years, _setMonthDays, date } = props;
-	const payloadMonth = useGetMonthDays({ date, years, _setMonthDays });
+	let payloadMonth = useGetMonthDays({ date, years, _setMonthDays });
 
+	payloadMonth = {
+		...payloadMonth,
+		...props
+	};
+	
 	return (
 		<Container maxWidth="xl" className="calendarContainer">
 			<Grid container>

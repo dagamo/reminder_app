@@ -1,18 +1,37 @@
 .calendarContainer {
-  color: #8A8A8A;
-  font-weight: bold;
+	color: #8a8a8a;
+	font-weight: bold;
 }
 .calendarHeader {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	padding: 25px;
-  font-size: 2rem;
+	font-size: 2rem;
 }
-.dayContainer{
-  font-size: 1.8rem;
-  width: 14.28%;
-  display:flex;
-  align-items: center;
-  justify-content: center;
+.dayContainer {
+	font-size: 1.8rem;
+	width: 14.28%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.containerDays {
+	display: flex;
+	flex-wrap: wrap;
+	flex: 1;
+}
+.containerDays > div {
+	width: 14.28%;
+	text-align: center;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	font-size: 1.7rem;
+  font-weight: normal;
+  cursor: pointer;
+}
+.containerDays > div:hover{
+  background-color: palegoldenrod;
 }
