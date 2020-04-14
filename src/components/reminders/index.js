@@ -1,40 +1,63 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Box } from '@material-ui/core';
+import { Box, Checkbox, Select } from '@material-ui/core';
 import moment from 'moment';
+import { NotificationManager } from 'react-notifications';
 //styles
 import './../../styles/ui/reminder.css';
 //components
 import Header from './header';
 import ReminderModal from './reminderModal/index';
 //actions
-import { createReminder } from './../../actions/reminder';
+import { createReminder, removeReminder } from './../../actions/reminder';
 
 const Reminders = (props) => {
-	const { date, onClick, createReminder, reminders } = props;
+	const { date, onClick, createReminder, reminders, removeReminder } = props;
 	const [ openModal, setOpen ] = useState(false);
+	const [ isEdit, setIsEdit ] = useState(false);
+	const [ checked, setChecked ] = useState({});
 
 	const modalProps = {
 		open: openModal,
 		setOpen,
+		checked,
 		date,
-		createReminder
+		createReminder,
+		setIsEdit,
+		isEdit
+	};
+
+	const _removeReminder = () => {
+		if (Object.keys(checked).length !== 0) {
+			removeReminder(checked.id);
+		} else {
+			NotificationManager.warning('Select a reminder');
+		}
 	};
 
 	return (
 		<Box>
 			<ReminderModal {...modalProps} />
-
-			<Header date={date} setOpen={setOpen} />
-			<Box style={{ backgroundColor: 'red' }} onClick={() => onClick()}>
-				Cerrar
-			</Box>
+			<Header
+				date={date}
+				setOpen={setOpen}
+				setIsEdit={setIsEdit}
+				setChecked={setChecked}
+				remove={_removeReminder}
+				onClick={onClick}
+			/>
 			<Box className="reminContainer">
-				{reminders.map((rem) => {
+				{reminders.map((rem, i) => {
 					let time = moment(rem.date).format('HH:mm a');
 					time = time == '00:00 am' ? '12:00 am' : time;
 					return (
-						<Box className="reminderCard" style={{ backgroundColor: rem.color }}>
+						<Box className="reminderCard" key={i} style={{ backgroundColor: rem.color }}>
+							<Checkbox
+								checked={checked.id === rem.id ? true : false}
+								color="primary"
+								inputProps={{ 'aria-label': 'secondary checkbox' }}
+								onClick={() => setChecked(rem)}
+							/>
 							<Box className="reminderTitle">{time}</Box>
 							<Box className="reminderText">{rem.reminder}</Box>
 							<Box className="cityContainer">
@@ -56,5 +79,5 @@ const mapStateToProps = (state) => {
 		reminders
 	};
 };
-const mapDispatchToProps = { createReminder };
+const mapDispatchToProps = { createReminder, removeReminder };
 export default connect(mapStateToProps, mapDispatchToProps)(Reminders);

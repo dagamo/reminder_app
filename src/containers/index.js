@@ -36,7 +36,7 @@ const Index = () => {
 			<Header />
 
 			<Grid container className="layout">
-				<Grid item xs={0} md={2}>
+				<Grid item xs={1} md={2}>
 					<SideNav />
 				</Grid>
 				<Grid item xs={12} md={8}>

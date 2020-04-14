@@ -3,14 +3,47 @@ import { Grid, Box } from '@material-ui/core';
 import moment from 'moment';
 
 const reminderHeader = (props) => {
-	const { date, setOpen } = props;
-  const monthString = moment(date, 'YYYY-MM-DD').format('MMMM DD, YYYY');
-  
+	const { date, setOpen, setIsEdit, setChecked, remove, onClick } = props;
+	const monthString = moment(date, 'YYYY-MM-DD').format('MMMM DD, YYYY');
+
 	return (
 		<Grid item md={12}>
 			<Grid item md={12} className="calendarHeader">
+				<Box
+					className="button-close"
+					onClick={() => {
+						onClick();
+					}}
+				>
+					Close
+				</Box>
 				<Box component="span">{monthString}</Box>
-        <Box className="button-create" onClick={()=>setOpen(true)}> New Reminder</Box>
+				<Box
+					className="button-create"
+					onClick={() => {
+						setOpen(true);
+						setChecked({});
+					}}
+				>
+					New
+				</Box>
+				<Box
+					className="button-edit"
+					onClick={() => {
+						setOpen(true);
+						setIsEdit(true);
+					}}
+				>
+					Edit
+				</Box>
+				<Box
+					className="button-remove"
+					onClick={() => {
+						remove();
+					}}
+				>
+					Remove
+				</Box>
 			</Grid>
 		</Grid>
 	);

@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useState, forwardRef, useEffect } from 'react';
 import {
 	Button,
 	Dialog,
@@ -19,12 +19,29 @@ const Transition = forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
 const colors = [ '#FFF1A3', '#EB848E', '#89E8CC', '#C278FF' ];
+
 export default function AlertDialogSlide(props) {
-	const { open, setOpen, date, createReminder } = props;
+	const { open, setOpen, date, createReminder, checked, isEdit, setIsEdit } = props;
 	const [ selectedDate, setSelectedDate ] = useState(new Date(moment(date).format('YYYY-MM-DDTHH:mm:ss')));
 	const [ reminder, setReminder ] = useState('');
 	const [ city, setCity ] = useState('');
 	const [ color, setColor ] = useState('#FFF1A3');
+
+	useEffect(
+		() => {
+			if (isEdit) {
+				setReminder(checked.reminder);
+				setSelectedDate(new Date(moment(checked.date).format('YYYY-MM-DDTHH:mm:ss')));
+				setCity(checked.city);
+				setColor(checked.color);
+			} else {
+				setReminder('');
+				setCity('');
+				setColor('#FFF1A3');
+			}
+		},
+		[ open ]
+	);
 
 	const handleDateChange = (date) => {
 		console.log('date', date);
@@ -38,15 +55,27 @@ export default function AlertDialogSlide(props) {
 		return NotificationManager.warning('The limit of characteres is 30');
 	};
 
+	const handleCloseModal = () => {
+		if (isEdit) {
+			setIsEdit(false);
+		}
+		setOpen(false);
+	};
+
 	const handleCreateReminder = () => {
 		const params = {
+			id: isEdit ? checked.id: null,
 			date: moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
 			city,
 			reminder,
-			color
+			color,
+			isEdit
 		};
 		if (reminder.trim() === '' || city.trim() === '') {
 			return NotificationManager.warning('Fill the fields');
+		}
+		if (isEdit) {
+			setIsEdit(false);
 		}
 		createReminder(params);
 		setOpen(false);
@@ -58,7 +87,7 @@ export default function AlertDialogSlide(props) {
 				open={open}
 				TransitionComponent={Transition}
 				keepMounted
-				onClose={() => setOpen(false)}
+				onClose={() => handleCloseModal()}
 				aria-labelledby="alert-dialog-slide-title"
 				aria-describedby="alert-dialog-slide-description"
 			>
@@ -91,6 +120,7 @@ export default function AlertDialogSlide(props) {
 						id="name"
 						label="City"
 						type="text"
+						value={city}
 						fullWidth
 						onChange={({ target: { value } }) => setCity(value)}
 					/>
@@ -111,7 +141,7 @@ export default function AlertDialogSlide(props) {
 					<Button onClick={() => handleCreateReminder()} color="primary">
 						Save
 					</Button>
-					<Button onClick={() => setOpen(false)} color="primary">
+					<Button onClick={() => handleCloseModal()} color="primary">
 						Cancel
 					</Button>
 				</DialogActions>
