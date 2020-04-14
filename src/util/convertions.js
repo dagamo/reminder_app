@@ -1,0 +1,1 @@
+export const f_to_c = (value) => ((Number(value) - 32) * (5/9)).toFixed(2);

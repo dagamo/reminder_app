@@ -11,7 +11,7 @@ const calendarHeader = (props) => {
 			<Grid item md={12} className="calendarHeader">
 				<Box component="span">{monthString}</Box>
 			</Grid>
-			<Grid container md={12}>
+			<Grid container >
 				{days.map((day, i) => (
 					<Box key={i} className="dayContainer">
 						{day}
