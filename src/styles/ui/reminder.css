@@ -25,3 +25,36 @@
 .selectedBadge{
 	border: 4px solid gray
 }
+.reminderCard{
+	padding:15px;
+	width:20%;
+	margin-right: 10px;
+	min-height: 200px;
+}
+.reminContainer{
+	display: flex;
+	flex:1;
+	flex-direction: row;
+	flex-wrap: wrap;
+	overflow: scroll;
+	align-items: center;
+	text-align: center;
+}
+.reminderTitle{
+	font-weight: bold;
+	font-size: 1.3rem;
+}
+.reminderCity{
+	font-weight: bold;
+}
+.reminderText{
+	word-wrap: break-word;
+}
+.cityContainer{
+	background-color: rgba(0,0,0,0.1);
+	position: absolute;
+	bottom:0px;
+	height: 80px;
+	width: 17%;
+
+}
