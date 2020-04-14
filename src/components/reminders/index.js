@@ -35,6 +35,14 @@ const Reminders = (props) => {
 		}
 	};
 
+	const checkDay = (day)=>{
+ if(day.id === checked.id){
+	setChecked({})
+ }else{
+	setChecked(day)
+ }
+	}
+
 	return (
 		<Box>
 			<ReminderModal {...modalProps} />
@@ -56,7 +64,7 @@ const Reminders = (props) => {
 								checked={checked.id === rem.id ? true : false}
 								color="primary"
 								inputProps={{ 'aria-label': 'secondary checkbox' }}
-								onClick={() => setChecked(rem)}
+								onClick={()=>checkDay(rem)}
 							/>
 							<Box className="reminderTitle">{time}</Box>
 							<Box className="reminderText">{rem.reminder}</Box>
