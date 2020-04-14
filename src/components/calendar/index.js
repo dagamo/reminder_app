@@ -26,7 +26,7 @@ const Calendar = (props) => {
 					<Header date={date} />
 				</Grid>
 				<Grid item xs={12} md={12}>
-					<Body {...payloadMonth} />
+					<Body {...payloadMonth} date={date}/>
 				</Grid>
 			</Grid>
 		</Container>
