@@ -35,3 +35,10 @@
 .containerDays > div:hover{
   background-color: palegoldenrod;
 }
+.containerDays > div > div {
+	background:red;
+	width:40px;
+	height:40px;
+	border-radius: 20px;
+	text-align: center;
+}

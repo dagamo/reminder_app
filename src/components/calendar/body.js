@@ -7,20 +7,26 @@ const Body = (props) => {
 	const { days, selectDay, onClick } = props;
 	return (
 		<Box className="containerDays">
-			{days.map((day, i) => (
-				<Box
-					key={i}
-					onClick={() => {
-						if (day.month && day.year) {
-							let date = `${day.year}-${day.month}-${day.dayNumber}`;
-							selectDay(date);
-							onClick()
-						}
-					}}
-				>
-					<Box component="span">{day.dayNumber}</Box>
-				</Box>
-			))}
+			{days.map((day, i) => {
+				let styles = {
+					backgroundColor: day.hasReminder ? '#EB848E' : 'transparent',
+					color: day.hasReminder ? '#FFF' : '#8A8A8A',
+				};
+				return (
+					<Box
+						key={i}
+						onClick={() => {
+							if (day.month && day.year) {
+								let date = `${day.year}-${day.month}-${day.dayNumber}`;
+								selectDay(date);
+								onClick();
+							}
+						}}
+					>
+						<Box style={styles}>{day.dayNumber}</Box>
+					</Box>
+				);
+			})}
 		</Box>
 	);
 };

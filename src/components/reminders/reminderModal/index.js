@@ -7,7 +7,8 @@ import {
 	DialogContent,
 	DialogTitle,
 	Slide,
-	TextareaAutosize
+	TextareaAutosize,
+	Box
 } from '@material-ui/core';
 import moment from 'moment';
 import MomentUtils from '@date-io/moment';
@@ -17,16 +18,17 @@ import { NotificationManager } from 'react-notifications';
 const Transition = forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
-
+const colors = [ '#FFF1A3', '#EB848E', '#89E8CC', '#C278FF' ];
 export default function AlertDialogSlide(props) {
-	const { open, setOpen, date } = props;
+	const { open, setOpen, date, createReminder } = props;
 	const [ selectedDate, setSelectedDate ] = useState(new Date(moment(date).format('YYYY-MM-DDTHH:mm:ss')));
 	const [ reminder, setReminder ] = useState('');
 	const [ city, setCity ] = useState('');
+	const [ color, setColor ] = useState('#FFF1A3');
 
 	const handleDateChange = (date) => {
 		console.log('date', date);
-		setSelectedDate(date);
+		setSelectedDate(date._d);
 	};
 
 	const handleReminerChange = (text) => {
@@ -34,6 +36,20 @@ export default function AlertDialogSlide(props) {
 			return setReminder(text);
 		}
 		return NotificationManager.warning('The limit of characteres is 30');
+	};
+
+	const handleCreateReminder = () => {
+		const params = {
+			date: moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
+			city,
+			reminder,
+			color
+		};
+		if (reminder.trim() === '' || city.trim() === '') {
+			return NotificationManager.warning('Fill the fields');
+		}
+		createReminder(params);
+		setOpen(false);
 	};
 
 	return (
@@ -78,9 +94,21 @@ export default function AlertDialogSlide(props) {
 						fullWidth
 						onChange={({ target: { value } }) => setCity(value)}
 					/>
+					<Box>
+						Select any color
+						<Box className="badgesContainer">
+							{colors.map((c) => (
+								<Box
+									onClick={() => setColor(c)}
+									className={`badges ${color === c && 'selectedBadge'}`}
+									style={{ backgroundColor: c }}
+								/>
+							))}
+						</Box>
+					</Box>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={() => setOpen(false)} color="primary">
+					<Button onClick={() => handleCreateReminder()} color="primary">
 						Save
 					</Button>
 					<Button onClick={() => setOpen(false)} color="primary">
