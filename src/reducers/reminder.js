@@ -1,4 +1,4 @@
-import { SELECT_DAY, UPDATE_GENERAL_PARAM } from './../constants/actionTypes';
+import { SELECT_DAY, UPDATE_GENERAL_PARAM, CREATE_REMINDER } from './../constants/actionTypes';
 const init = {
 	reminders: []
 };
@@ -9,6 +9,12 @@ export const reminder = (state = init, action) => {
 			return {
 				...state,
 				openReminders: true
+			};
+		}
+		case CREATE_REMINDER: {
+			return {
+				...state,
+				reminders: [ ...state.reminders, action.params ]
 			};
 		}
 		case UPDATE_GENERAL_PARAM: {

@@ -6,14 +6,25 @@ import './../../styles/ui/reminder.css';
 //components
 import Header from './header';
 import ReminderModal from './reminderModal/index';
+//actions
+import { createReminder } from './../../actions/reminder';
 
 const Reminders = (props) => {
-	const { date, onClick } = props;
+	const { date, onClick, createReminder } = props;
 	const [ openModal, setOpen ] = useState(false);
+
+	const modalProps = {
+		open: openModal,
+		setOpen,
+		date,
+		createReminder
+	};
 	return (
 		<Box>
-			<ReminderModal open={openModal} setOpen={setOpen} date={date} />
+			<ReminderModal {...modalProps} />
+			
 			<Header date={date} setOpen={setOpen} />
+			<Box style={{backgroundColor:'red'}} onClick={()=>onClick()}>Cerrar</Box>
 		</Box>
 	);
 };
@@ -24,4 +35,5 @@ const mapStateToProps = (state) => {
 		date
 	};
 };
-export default connect(mapStateToProps)(Reminders);
+const mapDispatchToProps = { createReminder };
+export default connect(mapStateToProps, mapDispatchToProps)(Reminders);

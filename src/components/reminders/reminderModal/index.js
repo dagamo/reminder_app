@@ -19,14 +19,14 @@ const Transition = forwardRef(function Transition(props, ref) {
 });
 
 export default function AlertDialogSlide(props) {
-	const { open, setOpen, date } = props;
+	const { open, setOpen, date, createReminder } = props;
 	const [ selectedDate, setSelectedDate ] = useState(new Date(moment(date).format('YYYY-MM-DDTHH:mm:ss')));
 	const [ reminder, setReminder ] = useState('');
 	const [ city, setCity ] = useState('');
 
 	const handleDateChange = (date) => {
 		console.log('date', date);
-		setSelectedDate(date);
+		setSelectedDate(date._d);
 	};
 
 	const handleReminerChange = (text) => {
@@ -34,6 +34,19 @@ export default function AlertDialogSlide(props) {
 			return setReminder(text);
 		}
 		return NotificationManager.warning('The limit of characteres is 30');
+	};
+
+	const handleCreateReminder = () => {
+		const params = {
+			date: moment(selectedDate).format('YYYY-MM-DDTHH:mm:ss'),
+			city,
+			reminder
+		};
+		if(reminder.trim() ===''|| city.trim() === ''){
+			return NotificationManager.warning('Fill the fields')
+		}
+		createReminder(params);
+		setOpen(false);
 	};
 
 	return (
@@ -80,7 +93,7 @@ export default function AlertDialogSlide(props) {
 					/>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={() => setOpen(false)} color="primary">
+					<Button onClick={() => handleCreateReminder()} color="primary">
 						Save
 					</Button>
 					<Button onClick={() => setOpen(false)} color="primary">

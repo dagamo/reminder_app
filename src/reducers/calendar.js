@@ -1,4 +1,4 @@
-import { SET_MONTH_DAYS, UPDATE_GENERAL_PARAM, SELECT_DAY } from './../constants/actionTypes';
+import { SET_MONTH_DAYS, UPDATE_GENERAL_PARAM, SELECT_DAY, CREATE_REMINDER } from './../constants/actionTypes';
 import moment from 'moment';
 import { verifyMonth } from './../util/verifyMonth';
 
@@ -104,6 +104,37 @@ export const calendar = (state = init, action) => {
 				dateSelected: action.date
 			};
 		}
+		case CREATE_REMINDER: {
+			let { date } = action.params;
+			let month = moment(date).month() + 1;
+			let year = moment(date).year();
+			let day = moment(date,'YYYY-MM-DDTHH:mm:ss').format('DD');
+			day = Number(day)
+			let copyMonthDays = [ ...state.years[year][month].days ];
+			let findDay = copyMonthDays.findIndex((d) => d.dayNumber === day);
+
+			if (findDay !== -1) {
+				copyMonthDays[findDay] = {
+					...copyMonthDays[findDay],
+					hasReminder: true
+				};
+			}
+
+			return {
+				...state,
+				years: {
+					...state.years,
+					[year]: {
+						...state.years[year],
+						[month]: {
+							...state.years[year][month],
+							days: [ ...copyMonthDays ]
+						}
+					}
+				}
+			};
+		}
+		
 		case UPDATE_GENERAL_PARAM: {
 			const { key, value, red_name } = action;
 			let copyState = { ...state };
